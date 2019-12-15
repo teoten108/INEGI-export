@@ -1,0 +1,176 @@
+#+OPTIONS: num:nil toc:nil H:3 \n:nil @:t ::t |:t ^:{} -:t f:t *:t TeX:t LaTeX:t skip:t d:(HIDE) tags:not-in-toc
+#+HTML_HEAD: <style>pre.src{background:#eee;}</style>
+#+HTML_HEAD: <style type="text/css">body{max-width:60%;}</style> 
+#+HTML_HEAD: <style>code{background:#eee;}</style>
+#+TITLE: Total exportations of Mexico by State and Activity
+#+BABEL: :exports both
+
+
+* INTRODUCTION
+
+The data set was taken from the website of the national institute of 
+informatics. Downloaded in excel format, it contains info about annual 
+exportation of products by sector, given in thousands of USD.
+
+* IMPORTING AND TIDYING THE DATA
+
+The excel file is separated in different sheets per state. Each sheet 
+contains the same information: annual exportation of products by sector, 
+given in thousands of USD, where each column contains information of the
+year, from 2007 to 2017.
+
+Our first step will be to import the data from the excel file, and tidying
+it in a useful way:
+
+#+BEGIN_SRC R
+
+  ## Calling libraries
+  library(readxl)
+  library(tidyverse)
+
+  ## Import from Excel
+
+  ## The sheet names are the name of each state
+  estados <- excel_sheets('ignore/EAEF_Entidad_Subsector.xlsx')
+  ## Import column names and avoiding useless rows
+  exportation <- read_xlsx('ignore/EAEF_Entidad_Subsector.xlsx',
+                           range = "A5:N5", sheet = 1,
+                           col_types = c("numeric", "text",
+                                         rep("numeric", 12)))
+  ## Create state column
+  exportation <- mutate(exportation, state = "Aguascalientes")
+
+  ## Iterate over every sheet
+  for (i in 1:length(estados)){
+      extracted <- read_xlsx('ignore/EAEF_Entidad_Subsector.xlsx',
+                             range = "A7:N31", sheet = i,
+                             col_names = F, na = "-",
+                             col_types = c("numeric", "text",
+                                           rep("numeric", 12)))
+      colnames(extracted) <- colnames(exportation)[1:14]
+      extracted <- mutate(extracted,
+                          state = estados[i])
+      exportation <- full_join(exportation, extracted)
+  }
+
+  ## Fix couple of column names
+  colnames(exportation)[c(3, 14)] <- c("2007", "2018")
+  exportation$`Código` <- parse_factor(as.character(exportation$`Código`))
+
+  ## Tidying data
+
+  export1 <- exportation %>%
+      pivot_longer(cols = `2007`:`2018`,
+                   names_to = "year",
+                   values_to = "USD",
+                   values_drop_na = T) %>%
+      mutate(year = parse_double(year))
+  export <- export1 %>%
+      pivot_wider(names_from = "Descripción",
+                  values_from = USD,
+                  id_cols = c("state", "year"))
+
+  ## Save our new data frames in a useful way
+  write_csv(export1, "exportations_activity_rows.csv")
+  write_csv(export, "exportations_activity_cols.csv")
+
+#+END_SRC
+
+Now we have 2 csv tables, =exportations_activity_rows.csv= (created from
+=export1=) which keeps each activity as a row, and 
+=exportations_activity_cols= (from =export=) which transform each activity
+into a column using =pivot_wider=. Each of the 2 can help us to analyse
+the data in different ways. We decided to keep them as csv files to make
+its access easier for github users.
+
+* Exploratory Data Analysis (EDA)
+
+Now if we start a new session, all we have to do is to call our libraries
+and load the data from CSV:
+
+#+BEGIN_SRC R
+  library(tidyverse)
+
+  export.rows <- read_csv("exportations_activity_rows.csv")
+  export.cols <- read_csv("exportations_activity_cols.csv")
+#+END_SRC
+
+Due to the complexity in the variables names, we are going to storage them 
+into an object to facilitate its accesibility. We could also rename them,
+but this would reduce its descriptive nature.
+
+#+begin_src R :results output
+  colnames(export.cols)
+  categorias <- colnames(export.cols)[3:27]
+  categorias
+#+end_src 
+
+Let's look at the totals by state, using =export.cols=
+
+#+BEGIN_SRC R :file figure1.png :results value graphics
+  export.cols %>%
+      group_by(state) %>%
+      summarise(`total export` = sum(!!sym(categorias[1]))) %>%
+      arrange(desc(`total export`)) %>%
+      print(n = Inf)
+
+   ## Graphical mode
+  export.cols %>%
+      group_by(state) %>%
+      summarise(`total export` = sum(!!sym(categorias[1]))) %>%
+      ggplot() +
+      geom_bar(aes(y = `total export`,
+                   x = reorder(state, `total export`, FUN = abs),
+                   fill = `total export`),
+               stat = 'identity') +
+      coord_flip()
+#+END_SRC
+
+Now, to do the same but by category, we could simply use =export.rows=
+
+#+BEGIN_SRC R :results output graphics :file figure2.png :exports both
+  export.rows %>%
+      filter(`Descripción` != categorias[1]) %>%
+      group_by(`Descripción`) %>%
+      summarise(Total = sum(USD)) %>%
+      arrange(desc(Total)) %>%
+      print(n = Inf)
+
+  export.rows %>%
+      filter(`Descripción` != categorias[1]) %>%
+      group_by(`Descripción`) %>%
+      summarise(Total = sum(USD)) %>%
+      ggplot() +
+      geom_bar(aes(y = Total,
+                   x = reorder(`Descripción`, Total, FUN = abs),
+                   fill = Total),
+               stat = 'identity') +
+      coord_flip()
+#+END_SRC
+
+Finally, total exportations per year:
+
+#+BEGIN_SRC R :results output graphics :file figure3.png figure4.png :exports both
+  export.cols %>%
+      group_by(year) %>%
+      summarise(`total export` = sum(!!sym(categorias[1]))) %>%
+      print(n = Inf)
+
+   ## Visualization
+  export.rows %>%
+      filter(`Descripción` != categorias[1]) %>%
+      group_by(year) %>%
+      summarise(Total = sum(USD)) %>%
+      ggplot(aes(x = year, y = Total)) +
+      geom_line() +
+      geom_point() 
+
+   ## Per state
+  export.rows %>%
+      filter(`Descripción` != categorias[1]) %>%
+      group_by(year, state) %>%
+      summarise(Total = sum(USD)) %>%
+      ggplot(aes(x = year, y = Total)) +
+      geom_line(aes(colour = state))+
+      geom_point(aes(colour = state))
+#+END_SRC
