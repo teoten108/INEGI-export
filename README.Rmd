@@ -1,7 +1,10 @@
 ---
 title: "Total exportations of Mexico by State and Activity"
+author: Manuel T.
 date: 2019-12-15
-output: html_document
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 # INTRODUCTION
