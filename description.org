@@ -5,6 +5,8 @@
 #+TITLE: Total exportations of Mexico by State and Activity
 #+BABEL: :exports both
 
+This is the same readme file in an attempt to make it work
+properly under org-mode.
 
 * INTRODUCTION
 

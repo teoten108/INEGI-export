@@ -77,21 +77,25 @@ export.cols %>%
              stat = 'identity') +
     coord_flip()
 
-## CHIHUAHUA
+## Totals per category
+
 export.rows %>%
-    filter(state == "Chihuahua" &
-           `Descripción` != "Exportaciones totales") %>%
+    filter(`Descripción` != categorias[1]) %>%
     group_by(`Descripción`) %>%
     summarise(Total = sum(USD)) %>%
-    filter(Total > 5000000) %>%
-    ggplot() +
-    geom_bar(aes(y = Total,
-                 x = reorder(`Descripción`, Total, FUN = abs),
-                 fill = Total),
-             stat = 'identity') +
-    coord_flip()
+    arrange(desc(Total)) %>%
+    print(n = Inf)
 
-
+export.rows %>%
+      filter(`Descripción` != categorias[1]) %>%
+      group_by(`Descripción`) %>%
+      summarise(Total = sum(USD)) %>%
+      ggplot() +
+      geom_bar(aes(y = Total,
+                   x = reorder(`Descripción`, Total, FUN = abs),
+                   fill = Total),
+               stat = 'identity') +
+      coord_flip()
 
 ## Total exportations per year
 ##
@@ -117,20 +121,32 @@ export.rows %>%
     geom_line(aes(colour = state))+
     geom_point(aes(colour = state))
 
-## Totals per category
+## To answer the question: Is every year the same state and same
+## activity making the biggest money?
+
+## STATE
+export.cols %>%
+    group_by(year) %>%
+    filter(!!sym(categorias[1]) == max(!!sym(categorias[1]))) %>%
+    select(year, state, !!sym(categorias[1])) %>%
+    arrange(year)
+
+## Activity
 export.rows %>%
     filter(`Descripción` != categorias[1]) %>%
-    group_by(`Descripción`) %>%
-    summarise(Total = sum(USD)) %>%
-    ggplot() +
-    geom_bar(aes(y = Total,
-                 x = reorder(`Descripción`, Total, FUN = abs),
-                 fill = Total),
-             stat = 'identity') +
-    coord_flip()
+    group_by(year) %>%
+    filter(USD == max(USD)) %>%
+    arrange(year)
 
+## Very interesting results: the states exporting the most are different than
+## the states with the activity contributing the most, per year. Also,
+## until 2009 is the same state and then it changes, but per activity
+## it remains until 2013, and then it changes, both state and activity.
+##
+## IDEA: Maybe we can observe this 4 states with more detail
+    
 
-### IDEA |
+### IDEA ---------------------------------------------------------------
 ### You can make a shiny app that shows per state, activity, or USD,
 ### statistics like, the main production per state, or the main states
 ### producing X stuff.
