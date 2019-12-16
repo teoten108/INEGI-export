@@ -288,3 +288,123 @@ Finally, total exportations per year:
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-6-2.png)
+
+We also would like to see if every year was the same state and/or the
+same activity making the biggest money by exportation, or if this
+changed with the time. Unfortunately, our figure with the total
+exportation per year grouped by state is quite messy and dificult to
+appreciate due to the big number of states. Thus we need a different
+approach to that
+
+``` r
+## Main state per year
+export.cols %>%
+    group_by(year) %>%
+    filter(!!sym(categorias[1]) == max(!!sym(categorias[1]))) %>%
+    select(year, state, !!sym(categorias[1])) %>%
+    arrange(year)
+```
+
+    ## # A tibble: 12 x 3
+    ## # Groups:   year [12]
+    ##     year state           `Exportaciones totales`
+    ##    <dbl> <chr>                             <dbl>
+    ##  1  2007 Baja California                31858677
+    ##  2  2008 Baja California                32988913
+    ##  3  2009 Baja California                26741828
+    ##  4  2010 Chihuahua                      34633881
+    ##  5  2011 Chihuahua                      38446014
+    ##  6  2012 Chihuahua                      41764861
+    ##  7  2013 Chihuahua                      43770979
+    ##  8  2014 Chihuahua                      45594451
+    ##  9  2015 Chihuahua                      40302945
+    ## 10  2016 Chihuahua                      43342067
+    ## 11  2017 Chihuahua                      46491551
+    ## 12  2018 Chihuahua                      51944047
+
+``` r
+## Activity
+export.rows %>%
+    filter(`Descripción` != categorias[1]) %>%
+    group_by(year) %>%
+    filter(USD == max(USD)) %>%
+    arrange(year)
+```
+
+    ## # A tibble: 12 x 5
+    ## # Groups:   year [12]
+    ##    Código Descripción                      state               year     USD
+    ##     <dbl> <chr>                            <chr>              <dbl>   <dbl>
+    ##  1    211 Extracción de petróleo y gas     Campeche            2007  2.88e7
+    ##  2    211 Extracción de petróleo y gas     Campeche            2008  3.16e7
+    ##  3    211 Extracción de petróleo y gas     Campeche            2009  1.74e7
+    ##  4    211 Extracción de petróleo y gas     Campeche            2010  2.33e7
+    ##  5    211 Extracción de petróleo y gas     Campeche            2011  3.11e7
+    ##  6    211 Extracción de petróleo y gas     Campeche            2012  2.92e7
+    ##  7    211 Extracción de petróleo y gas     Campeche            2013  2.69e7
+    ##  8    336 Fabricación de equipo de transp… Coahuila de Zarag…  2014  2.32e7
+    ##  9    336 Fabricación de equipo de transp… Coahuila de Zarag…  2015  2.43e7
+    ## 10    336 Fabricación de equipo de transp… Coahuila de Zarag…  2016  2.56e7
+    ## 11    336 Fabricación de equipo de transp… Coahuila de Zarag…  2017  2.52e7
+    ## 12    336 Fabricación de equipo de transp… Coahuila de Zarag…  2018  2.62e7
+
+Our results are quite interesting: the main state until 2009 is *Baja
+California*, and then it changes to *Chihuahua*, but when we look at the
+main activity exporting USD, the main states are *Campeche* until 2013
+and then it changes to *Coahuila*. It seems that there is not a big
+difference between activities in the total USD produced by exportation,
+and that different combinations could lead to a bigger production in a
+single state. A good example of this is *Campeche*, who is the leader in
+the main exportation activity from 2007 to 2013, however it goes to the
+6th position when it comes to the total exportations overall.
+
+It could be interesting to look at the main states exporting, as well as
+the leading activities.
+
+Interactive visualization
+=========================
+
+We can create specific functions using our data frames to look directly
+at a given state or activity in order to make our analysis easier and
+find specific patterns.
+
+``` r
+## FUNCTION TO CHOSEE MAIN ACTIVITY PER STATE
+plot_state <- function(estado, USD_min = 5000000){
+    export.rows %>%
+        filter(`Descripción` != "Exportaciones totales") %>%
+        group_by(state, `Descripción`)  %>%
+        summarise(Total = sum(USD)) %>%
+        filter(state == estado &
+               Total >= USD_min) %>%
+        ggplot() +
+        geom_bar(aes(y = Total,
+                     x = reorder(`Descripción`, Total, FUN = abs),
+                     fill = Total),
+                 stat = 'identity') +
+        coord_flip() +
+        labs(title = estado,
+             y = "Total USD", x = NULL) +
+        theme(legend.position="none")
+}
+
+## FUNCTION TO CHOSEE MAIN STATES IN A GIVEN ACTIVITY
+plot_activity <- function(activity_id, USD_min = 5000000){
+    activity <- colnames(export.cols)[3:27]
+    export.cols %>%
+        select(state, year, activity[activity_id]) %>%
+        group_by(state)  %>%
+        summarise(Total = sum(!!sym(activity[activity_id]))) %>%
+        filter(Total >= USD_min) %>%
+        ggplot() +
+        geom_bar(aes(y = Total,
+                     x = reorder(state,
+                                 Total, FUN = abs),
+                     fill = Total),
+                 stat = 'identity') +
+        coord_flip() +
+        labs(title = activity[activity_id],
+             y = "Total USD", x = NULL) +
+        theme(legend.position="none")
+}
+```
