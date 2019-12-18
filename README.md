@@ -20,6 +20,7 @@ tidying it in a useful way:
   ## Calling libraries
   library(readxl)
   library(tidyverse)
+  library(cowplot)
 
   ## Import from Excel
 
@@ -377,9 +378,11 @@ plot_state <- function(estado, USD_min = 5000000){
         summarise(Total = sum(USD)) %>%
         filter(state == estado &
                Total >= USD_min) %>%
-        ggplot() +
+        ggplot() + 
         geom_bar(aes(y = Total,
-                     x = reorder(`Descripción`, Total, FUN = abs),
+                     x = reorder(stringr::str_wrap(`Descripción`, 15),
+                                 Total,
+                                 FUN = abs),
                      fill = Total),
                  stat = 'identity') +
         coord_flip() +
@@ -408,3 +411,20 @@ plot_activity <- function(activity_id, USD_min = 5000000){
         theme(legend.position="none")
 }
 ```
+
+Now we can see particular states and activities. We can start with the
+main 6 states to see why are there differences in the main activities
+and main states exporting.
+
+``` r
+plot_grid(
+    plot_state("Chihuahua") ,
+    plot_state("Baja California"),
+    plot_state("Coahuila de Zaragoza"),
+    plot_state("Nuevo León"),
+    plot_state("Tamaulipas"),
+    plot_state("Campeche", USD_min = 10000),
+    ncol = 2)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)

@@ -1,54 +1,54 @@
-library(readxl)
-library(tidyverse)
+#library(readxl)
+#library(tidyverse)
 
 ### DATA IMPORT AND TIDY
 ### --------------------
 
 ## Import from Excel
-estados <- excel_sheets('ignore/EAEF_Entidad_Subsector.xlsx')
-exportation <- read_xlsx('ignore/EAEF_Entidad_Subsector.xlsx',
-                           range = "A5:N5", sheet = 1,
-                         col_types = c("numeric", "text", rep("numeric", 12)))
-exportation <- mutate(exportation, state = "Aguascalientes")
-
-for (i in 1:length(estados)){
-    extracted <- read_xlsx('ignore/EAEF_Entidad_Subsector.xlsx',
-                           range = "A7:N31", sheet = i,
-                 col_names = F, na = "-",
-                 col_types = c("numeric", "text", rep("numeric", 12)))
-    colnames(extracted) <- colnames(exportation)[1:14]
-    extracted <- mutate(extracted,
-                        state = estados[i])
-    exportation <- full_join(exportation, extracted)
-}
-
-colnames(exportation)[c(3, 14)] <- c("2007", "2018")
-exportation$`Código` <- parse_factor(as.character(exportation$`Código`))
-
+#estados <- excel_sheets('ignore/EAEF_Entidad_Subsector.xlsx')
+#exportation <- read_xlsx('ignore/EAEF_Entidad_Subsector.xlsx',
+#                           range = "A5:N5", sheet = 1,
+#                         col_types = c("numeric", "text", rep("numeric", 12)))
+#exportation <- mutate(exportation, state = "Aguascalientes")
+#
+#for (i in 1:length(estados)){
+#    extracted <- read_xlsx('ignore/EAEF_Entidad_Subsector.xlsx',
+#                           range = "A7:N31", sheet = i,
+#                 col_names = F, na = "-",
+#                 col_types = c("numeric", "text", rep("numeric", 12)))
+#    colnames(extracted) <- colnames(exportation)[1:14]
+#    extracted <- mutate(extracted,
+#                        state = estados[i])
+#    exportation <- full_join(exportation, extracted)
+#}
+#
+#colnames(exportation)[c(3, 14)] <- c("2007", "2018")
+#exportation$`Código` <- parse_factor(as.character(exportation$`Código`))
+#
 ## Tidying data
-
-export1 <- exportation %>%
-    pivot_longer(cols = `2007`:`2018`,
-                 names_to = "year",
-                 values_to = "USD",
-                 values_drop_na = T) %>%
-    mutate(year = parse_double(year))
-
-export <- export1 %>%
-    pivot_wider(names_from = "Descripción",
-                values_from = USD,
-                id_cols = c("state", "year"))
-
+#
+#export1 <- exportation %>%
+#    pivot_longer(cols = `2007`:`2018`,
+#                 names_to = "year",
+#                 values_to = "USD",
+#                 values_drop_na = T) %>%
+#    mutate(year = parse_double(year))
+#
+#export <- export1 %>%
+#    pivot_wider(names_from = "Descripción",
+#                values_from = USD,
+#                id_cols = c("state", "year"))
+#
 ## Save this last 2 for later usage
-
-write_csv(export1, "exportations_activity_rows.csv")
-write_csv(export, "exportations_activity_cols.csv")
+#
+#write_csv(export1, "exportations_activity_rows.csv")
+#write_csv(export, "exportations_activity_cols.csv")
 
 ### GENERAL ANALYSIS
 ### ----------------
 
 ## Now let's import the data as our new CSV files
-
+library(tidyverse)
 export.rows <- read_csv("exportations_activity_rows.csv")
 export.cols <- read_csv("exportations_activity_cols.csv")
 
@@ -220,13 +220,14 @@ plot_activity(21, USD_min = 1000)
 
 ### analysis :: BACK
 
-## Check other main exporters (Top 5)
+## Check other main exporters (Top 6)
 
 plot_state("Chihuahua")
 plot_state("Baja California")
 plot_state("Coahuila de Zaragoza")
 plot_state("Nuevo León")
 plot_state("Tamaulipas")
+plot_state("Campeche", USD_min = 10000)
 
 ### IDEA |
 ### It seems that producing computer equipment is the main in 3 of the
