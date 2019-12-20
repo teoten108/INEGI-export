@@ -52,9 +52,52 @@ library(tidyverse)
 export.rows <- read_csv("exportations_activity_rows.csv")
 export.cols <- read_csv("exportations_activity_cols.csv")
 
-## get the exact names of each variable
-categorias <- colnames(export.cols)[3:27]
+## Change activities for shorter, english names
 colnames(export.cols)
+categorias <- colnames(export.cols)[3:27]
+
+activities.en <- c("Total", "Food", "Drinks and tobacco",
+                   "Textiles", "Textile products", "Tailoring",
+                   "Paper", "Chemistry", "Plastic",
+                   "Minerals based", "Metal industry", "Metal products",
+                   "Machinery", "Electronics", "Transport equipment",
+                   "Furniture", "Other manufactures", "Not specified",
+                   "Mining", "Leather", "Wood",
+                   "Printing", "Electricity", "Petroleum",
+                   "Petroleum products")
+
+## Change column names
+colnames(export.cols)[3:27] <- activities.en
+
+## To change the values in export.rows we will need to convert the spanish
+## expressions into english ones. Here functional programming comes very
+## handy: first we create our function translate, which will do the final
+## job, and then we fill the gaps, in this case, we create "equivalent",
+## which will find the equivalent expression in each language. However,
+## eqiuvalent must be run first for translate to work
+
+equivalent <- function(expression.es){
+    position <- match(expression.es, categorias)
+    expression.en <- activities.en[position]
+    expression.en
+}
+
+translate <- function(vector.es){
+    vector.en <- c()
+    for (i in 1:length(vector.es)){
+        expression.es <- vector.es[i]
+        expression.en <- equivalent(expression.es)
+        ## Here "equivalent" should take expression.es and return the
+        ## equivalent in english
+        vector.en <- append(vector.en, expression.en)
+    }
+    vector.en
+}
+
+translate(categorias)
+
+export.rows <- mutate(export.rows,
+                      Activity = translate(`Descripción`))
 
 ## look at the totals
 
@@ -63,13 +106,13 @@ colnames(export.cols)
 
 export.cols %>%
     group_by(state) %>%
-    summarise(`total export` = sum(!!sym(categorias[1]))) %>%
+    summarise(`total export` = sum(Total)) %>%
     arrange(desc(`total export`)) %>%
     print(n = Inf)
 
 export.cols %>%
     group_by(state) %>%
-    summarise(`total export` = sum(!!sym(categorias[1]))) %>%
+    summarise(`total export` = sum(Total)) %>%
     ggplot() +
     geom_bar(aes(y = `total export`,
                  x = reorder(state, `total export`, FUN = abs),
@@ -80,33 +123,33 @@ export.cols %>%
 ## Totals per category
 
 export.rows %>%
-    filter(`Descripción` != categorias[1]) %>%
-    group_by(`Descripción`) %>%
+    filter(Activity != "Total") %>%
+    group_by(Activity) %>%
     summarise(Total = sum(USD)) %>%
     arrange(desc(Total)) %>%
     print(n = Inf)
 
 export.rows %>%
-      filter(`Descripción` != categorias[1]) %>%
-      group_by(`Descripción`) %>%
-      summarise(Total = sum(USD)) %>%
-      ggplot() +
-      geom_bar(aes(y = Total,
-                   x = reorder(`Descripción`, Total, FUN = abs),
-                   fill = Total),
-               stat = 'identity') +
-      coord_flip()
+    filter(Activity != "Total") %>%
+    group_by(Activity) %>%
+    summarise(Total = sum(USD)) %>%
+    ggplot() +
+    geom_bar(aes(y = Total,
+                 x = reorder(Activity, Total, FUN = abs),
+                 fill = Total),
+             stat = 'identity') +
+    coord_flip()
 
 ## Total exportations per year
 ##
 
 export.cols %>%
     group_by(year) %>%
-    summarise(`total export` = sum(!!sym(categorias[1]))) %>%
+    summarise(`total export` = sum(Total)) %>%
     print(n = Inf)
 
 export.rows %>%
-    filter(`Descripción` != categorias[1]) %>%
+    filter(Activity == "Total") %>%
     group_by(year) %>%
     summarise(Total = sum(USD)) %>%
     ggplot(aes(x = year, y = Total)) +
@@ -114,12 +157,12 @@ export.rows %>%
     geom_point() 
 
 export.rows %>%
-    filter(`Descripción` != categorias[1]) %>%
+    filter(Activity == "Total") %>%
     group_by(year, state) %>%
     summarise(Total = sum(USD)) %>%
     ggplot(aes(x = year, y = Total)) +
-    geom_line(aes(colour = state))+
-    geom_point(aes(colour = state))
+    geom_line(aes(colour = abbreviate(state, 6)))+
+    geom_point(aes(colour = abbreviate(state, 6)))
 
 ## To answer the question: Is every year the same state and same
 ## activity making the biggest money?
@@ -127,16 +170,17 @@ export.rows %>%
 ## STATE
 export.cols %>%
     group_by(year) %>%
-    filter(!!sym(categorias[1]) == max(!!sym(categorias[1]))) %>%
-    select(year, state, !!sym(categorias[1])) %>%
+    filter(Total == max(Total)) %>%
+    select(year, state, Total) %>%
     arrange(year)
 
 ## Activity
 export.rows %>%
-    filter(`Descripción` != categorias[1]) %>%
+    filter(Activity != "Total") %>%
     group_by(year) %>%
     filter(USD == max(USD)) %>%
-    arrange(year)
+    arrange(year) %>%
+    select(Activity, state, year)
 
 ## Very interesting results: the states exporting the most are different than
 ## the states with the activity contributing the most, per year. Also,
@@ -156,14 +200,14 @@ export.rows %>%
 ## FUNCTION TO CHOSEE MAIN ACTIVITY PER STATE
 plot_state <- function(estado, USD_min = 5000000){
     export.rows %>%
-        filter(`Descripción` != "Exportaciones totales") %>%
-        group_by(state, `Descripción`)  %>%
+        filter(Activity != "Total") %>%
+        group_by(state, Activity)  %>%
         summarise(Total = sum(USD)) %>%
         filter(state == estado &
                Total >= USD_min) %>%
         ggplot() +
         geom_bar(aes(y = Total,
-                     x = reorder(`Descripción`, Total, FUN = abs),
+                     x = reorder(Activity, Total, FUN = abs),
                      fill = Total),
                  stat = 'identity') +
         coord_flip() +
@@ -191,12 +235,12 @@ export.rows %>%
 plot_state("Chihuahua")
 
 ## FUNCTION TO CHOSEE MAIN STATES IN A GIVEN ACTIVITY
-plot_activity <- function(activity_id, USD_min = 5000000){
-    activity <- colnames(export.cols)[3:27]
+plot_activity <- function(activity, USD_min = 5000000){
+#    activity <- colnames(export.cols)[3:27]
     export.cols %>%
-        select(state, year, activity[activity_id]) %>%
+        select(state, year, activity) %>%
         group_by(state)  %>%
-        summarise(Total = sum(!!sym(activity[activity_id]))) %>%
+        summarise(Total = sum(!!sym(activity))) %>%
         filter(Total >= USD_min) %>%
         ggplot() +
         geom_bar(aes(y = Total,
@@ -205,18 +249,14 @@ plot_activity <- function(activity_id, USD_min = 5000000){
                      fill = Total),
                  stat = 'identity') +
         coord_flip() +
-        labs(title = activity[activity_id],
+        labs(title = activity,
              y = "Total USD", x = NULL) +
         theme(legend.position="none")
 }
 
-## Now let's create clear id numbers for the activities
-activities.id <- data.frame(id = c(1:25),
-                            Activity = colnames(export.cols)[3:27])
-
 ## Test
-plot_activity(1) # Exportaciones totales
-plot_activity(21, USD_min = 1000)
+plot_activity("Total") # Exportaciones totales
+plot_activity("Petroleum products", USD_min = 1000)
 
 ### analysis :: BACK
 
@@ -234,7 +274,7 @@ plot_state("Campeche", USD_min = 10000)
 ### top 5 states, while the wealthiest activity over all is transport
 ### equipment production. Let's look with more detail at this
 
-plot_activity(14) 
-plot_activity(15)
+plot_activity(activities.en[14]) 
+plot_activity(activities.en[15])
 
 ## Now is very clear the reason why

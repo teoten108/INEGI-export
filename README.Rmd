@@ -1,5 +1,5 @@
 ---
-title: "Total exportations of Mexico by State and Activity"
+title: "Total exportation of Mexico by State and Activity"
 author: Manuel T.
 date: 2019-12-15
 output:
@@ -67,6 +67,7 @@ it in a useful way:
                    values_to = "USD",
                    values_drop_na = T) %>%
       mutate(year = parse_double(year))
+
   export <- export1 %>%
       pivot_wider(names_from = "Descripción",
                   values_from = USD,
@@ -83,7 +84,7 @@ Now we have 2 csv tables, `exportations_activity_rows.csv` (created from
 `exportations_activity_cols` (from `export`) which transform each activity
 into a column using `pivot_wider`. Each of the 2 can help us to analyse
 the data in different ways. We decided to keep them as csv files to make
-its access easier for github users.
+its access easier for GitHub users.
 
 # Exploratory Data Analysis (EDA)
 
@@ -91,34 +92,91 @@ Now if we start a new session, all we have to do is to call our libraries
 and load the data from CSV:
 
 ```{r, include = T, message = FALSE, warning = FALSE}
-  library(tidyverse)
+library(tidyverse)
+library(cowplot)
 
   export.rows <- read_csv("exportations_activity_rows.csv")
   export.cols <- read_csv("exportations_activity_cols.csv")
 ```
 
-Due to the complexity in the variables names, we are going to storage them 
-into an object to facilitate its accesibility. We could also rename them,
-but this would reduce its descriptive nature.
+As the analysis developed, we found the importance of translating the
+variable names to English. Not only for the reader to understand, but also
+due to the long string and complexity of the categories in Spanish. I could
+first translate and then save the csv files, however I encountered this
+problem and fixed it once the csv files were already created, and in honour
+to that, I decided to keep it in the same way for this publication. 
+Therefore, before diving into the EDA, here is the code I used to translate
+the variables from Spanish (ES) to English (EN).
 
 ```{r, include = T, message = FALSE, warning = FALSE}
-  categorias <- colnames(export.cols)[3:27]
-  categorias
+## Spanish names in a vector
+colnames(export.cols)
+categorias <- colnames(export.cols)[3:27]
+
+## Shorter equivalents in English
+activities.en <- c("Total", "Food", "Drinks and tobacco",
+                   "Textiles", "Textile products", "Tailoring",
+                   "Paper", "Chemistry", "Plastic",
+                   "Minerals based", "Metal industry", "Metal products",
+                   "Machinery", "Electronics", "Transport equipment",
+                   "Furniture", "Other manufactures", "Not specified",
+                   "Mining", "Leather", "Wood",
+                   "Printing", "Electricity", "Petroleum",
+                   "Petroleum products")
+
+## Change column names
+colnames(export.cols)[3:27] <- activities.en
 ```
 
-Let's look at the totals by state, using `export.cols`
+To change the values in `export.rows` we will need to convert the Spanish
+expressions into English ones. Here functional programming comes very
+handy: first we create our function `translate`, which will do the final
+job, and then we fill the gaps, in this case, we create `equivalent`,
+which will find the equivalent expression in each language. However,
+`equivalent` must be run before `translate` to work.
+
+```{r, include = T, message = FALSE, warning = FALSE}
+translate <- function(vector.es){
+    vector.en <- c()
+    for (i in 1:length(vector.es)){
+        expression.es <- vector.es[i]
+        expression.en <- equivalent(expression.es)
+        ## Here "equivalent" should take expression.es and return the
+        ## equivalent in English
+        vector.en <- append(vector.en, expression.en)
+    }
+    vector.en
+}
+
+equivalent <- function(expression.es){
+    position <- match(expression.es, categorias)
+    expression.en <- activities.en[position]
+    expression.en
+}
+
+## Testing our new functions
+equivalent("Impresión e industrias conexas")
+translate(categorias)
+
+## Creating a new column "Activity" with the English expressions
+export.rows <- mutate(export.rows,
+                      Activity = translate(`Descripción`))
+```
+
+Now to start with the EDA, let's look at the totals by state, using 
+`export.cols`
 
 ```{r, include = T, message = FALSE, warning = FALSE}
   export.cols %>%
-      group_by(state) %>%
-      summarise(`total export` = sum(!!sym(categorias[1]))) %>%
-      arrange(desc(`total export`)) %>%
-      print(n = Inf)
+    group_by(state) %>%
+    summarise(`total export` = sum(Total)) %>%
+    arrange(desc(`total export`)) %>%
+    print(n = Inf)
 
    ## Graphical mode
   export.cols %>%
       group_by(state) %>%
-      summarise(`total export` = sum(!!sym(categorias[1]))) %>%
+      summarise(`total export` = sum(Total)) %>%
       ggplot() +
       geom_bar(aes(y = `total export`,
                    x = reorder(state, `total export`, FUN = abs),
@@ -130,106 +188,106 @@ Let's look at the totals by state, using `export.cols`
 Now, to do the same but by category, we could simply use `export.rows`
 
 ```{r, include = T, message = FALSE, warning = FALSE}
-  export.rows %>%
-      filter(`Descripción` != categorias[1]) %>%
-      group_by(`Descripción`) %>%
-      summarise(Total = sum(USD)) %>%
-      arrange(desc(Total)) %>%
-      print(n = Inf)
+export.rows %>%
+    filter(Activity != "Total") %>%
+    group_by(Activity) %>%
+    summarise(Total = sum(USD)) %>%
+    arrange(desc(Total)) %>%
+    print(n = Inf)
 
-  export.rows %>%
-      filter(`Descripción` != categorias[1]) %>%
-      group_by(`Descripción`) %>%
-      summarise(Total = sum(USD)) %>%
-      ggplot() +
-      geom_bar(aes(y = Total,
-                   x = reorder(`Descripción`, Total, FUN = abs),
-                   fill = Total),
-               stat = 'identity') +
-      coord_flip()
+export.rows %>%
+    filter(Activity != "Total") %>%
+    group_by(Activity) %>%
+    summarise(Total = sum(USD)) %>%
+    ggplot() +
+    geom_bar(aes(y = Total,
+                 x = reorder(Activity, Total, FUN = abs),
+                 fill = Total),
+             stat = 'identity') +
+    coord_flip()
 ```
 
 Finally, total exportations per year:
 
 ```{r, include = T, message = FALSE, warning = FALSE}
-  export.cols %>%
-      group_by(year) %>%
-      summarise(`total export` = sum(!!sym(categorias[1]))) %>%
-      print(n = Inf)
+export.cols %>%
+    group_by(year) %>%
+    summarise(`total export` = sum(Total)) %>%
+    print(n = Inf)
 
-   ## Visualization
-  export.rows %>%
-      filter(`Descripción` != categorias[1]) %>%
-      group_by(year) %>%
-      summarise(Total = sum(USD)) %>%
-      ggplot(aes(x = year, y = Total)) +
-      geom_line() +
-      geom_point() 
+## Visualisation
+export.rows %>%
+    filter(Activity == "Total") %>%
+    group_by(year) %>%
+    summarise(Total = sum(USD)) %>%
+    ggplot(aes(x = year, y = Total)) +
+    geom_line() +
+    geom_point() 
 
-   ## Per state
-  export.rows %>%
-      filter(`Descripción` != categorias[1]) %>%
-      group_by(year, state) %>%
-      summarise(Total = sum(USD)) %>%
-      ggplot(aes(x = year, y = Total)) +
-      geom_line(aes(colour = state))+
-      geom_point(aes(colour = state))
+## Per state
+export.rows %>%
+    filter(Activity == "Total") %>%
+    group_by(year, state) %>%
+    summarise(Total = sum(USD)) %>%
+    ggplot(aes(x = year, y = Total)) +
+    geom_line(aes(colour = abbreviate(state, 6)))+
+    geom_point(aes(colour = abbreviate(state, 6)))
 ```
 
 We also would like to see if every year was the same state and/or the same 
 activity making the biggest money by exportation, or if this changed with
 the time. Unfortunately, our figure with the total exportation per year
-grouped by state is quite messy and dificult to appreciate due to the big
+grouped by state is quite messy and difficult to appreciate due to the big
 number of states. Thus we need a different approach to that
 
 ```{r, include = T, message = FALSE, warning = FALSE}
 ## Main state per year
 export.cols %>%
     group_by(year) %>%
-    filter(!!sym(categorias[1]) == max(!!sym(categorias[1]))) %>%
-    select(year, state, !!sym(categorias[1])) %>%
+    filter(Total == max(Total)) %>%
+    select(year, state, Total) %>%
     arrange(year)
 
 ## Activity
 export.rows %>%
-    filter(`Descripción` != categorias[1]) %>%
+    filter(Activity != "Total") %>%
     group_by(year) %>%
     filter(USD == max(USD)) %>%
-    arrange(year)
+    arrange(year) %>%
+    select(Activity, state, year)
 ```
 
 Our results are quite interesting: the main state until 2009 is *Baja California*,
-and then it changes to *Chihuahua*, but when we look at the main activity exporting
-USD, the main states are *Campeche* until 2013 and then it changes to *Coahuila*.
-It seems that there is not a big difference between activities in the total USD 
-produced by exportation, and that different combinations could lead to a bigger
-production in a single state. A good example of this is *Campeche*, who is the
-leader in the main exportation activity from 2007 to 2013, however it goes to
-the 6th position when it comes to the total exportations overall. 
+and then it changes to *Chihuahua*, but when we look at the main activity 
+exporting USD, the main states are *Campeche* until 2013 and then it 
+changes to *Coahuila*. It seems that there is not a big difference between 
+activities in the total USD produced by exportation, and that different 
+combinations could lead to a bigger production in a single state. A good 
+example of this is *Campeche*, who is the leader in the main exportation 
+activity from 2007 to 2013, however it goes to the 6Th position when it 
+comes to the total exportations overall. 
 
-It could be interesting to look at the main states exporting, as well as the leading
-activities. 
+It could be interesting to look at the main states exporting, as well as 
+the leading activities. 
 
-# Interactive visualization
+# Interactive visualisation
 
 We can create specific functions using our data frames to look directly at a 
 given state or activity in order to make our analysis easier and find specific 
 patterns.
 
 ```{r, include = T, message = FALSE, warning = FALSE}
-## FUNCTION TO CHOSEE MAIN ACTIVITY PER STATE
+## FUNCTION TO CHOOSE MAIN ACTIVITY PER STATE
 plot_state <- function(estado, USD_min = 5000000){
     export.rows %>%
-        filter(`Descripción` != "Exportaciones totales") %>%
-        group_by(state, `Descripción`)  %>%
+        filter(Activity != "Total") %>%
+        group_by(state, Activity)  %>%
         summarise(Total = sum(USD)) %>%
         filter(state == estado &
                Total >= USD_min) %>%
-        ggplot() + 
+        ggplot() +
         geom_bar(aes(y = Total,
-                     x = reorder(stringr::str_wrap(`Descripción`, 15),
-                                 Total,
-                                 FUN = abs),
+                     x = reorder(Activity, Total, FUN = abs),
                      fill = Total),
                  stat = 'identity') +
         coord_flip() +
@@ -238,13 +296,12 @@ plot_state <- function(estado, USD_min = 5000000){
         theme(legend.position="none")
 }
 
-## FUNCTION TO CHOSEE MAIN STATES IN A GIVEN ACTIVITY
-plot_activity <- function(activity_id, USD_min = 5000000){
-    activity <- colnames(export.cols)[3:27]
+## FUNCTION TO CHOOSE MAIN STATES IN A GIVEN ACTIVITY
+plot_activity <- function(activity, USD_min = 5000000){
     export.cols %>%
-        select(state, year, activity[activity_id]) %>%
+        select(state, year, activity) %>%
         group_by(state)  %>%
-        summarise(Total = sum(!!sym(activity[activity_id]))) %>%
+        summarise(Total = sum(!!sym(activity))) %>%
         filter(Total >= USD_min) %>%
         ggplot() +
         geom_bar(aes(y = Total,
@@ -253,7 +310,7 @@ plot_activity <- function(activity_id, USD_min = 5000000){
                      fill = Total),
                  stat = 'identity') +
         coord_flip() +
-        labs(title = activity[activity_id],
+        labs(title = activity,
              y = "Total USD", x = NULL) +
         theme(legend.position="none")
 }
@@ -273,3 +330,53 @@ plot_grid(
     plot_state("Campeche", USD_min = 10000),
     ncol = 2)
 ```
+
+Despite of the fact that different states get their main exportation from 
+different products, *Electronics* and *Transport equipment* are generally
+in the first 2 places. Other activities such as *Machinery* and *Metal
+products* also remain in the top exportations among the first 5 states. In
+other words, there is a trend among the 5 states with the biggest 
+exportation income with the kind of activities that are responsible for it.
+However, this trend is totally broken in the case of *Campeche*, which is
+on the 6Th place and main exportation activity is from *Petroleum*, which 
+no other state in the top 5 shares. Nevertheless, petroleum or, *Extraction
+of petroleum and oil* as it translates, is in the third position of main
+activities responsible for exportations.
+
+```{r}
+export.rows %>%
+    filter(Activity == "Electronics" |
+           Activity == "Transport equipment" |
+           Activity == "Petroleum") %>%
+    group_by(year, Activity) %>%
+    summarise(`Total per activity` = sum(USD)) %>%
+    ggplot(aes(x = year, y = `Total per activity`)) +
+    geom_line(aes(colour = Activity)) +
+    geom_point(aes(colour = Activity))
+```
+It looks like the extraction of petroleum and oil has, at least since 2007,
+been exporting less than the production of electronics and transport
+equipment. And another interesting trend is observed in the last plot:
+since 2009, the production of transport equipment had a considerable 
+increase in its exportations.
+
+Coming back to petroleum extraction, we can have a look at the top 
+petroleum exporters using our `plot_activity` function
+
+```{r}
+plot_activity("Petroleum")
+```
+
+Only 4 states are exporting more than 5,000 million USD from petroleum.
+
+```{r}
+plot_grid(
+    plot_state("Campeche", USD_min = 1000000),
+    plot_state("Tabasco", USD_min = 1000000),
+    plot_state("Veracruz de Ignacio de la Llave"),
+    plot_state("Chiapas", USD_min = 1000000))
+```
+
+It seems that the economy of Tabasco, Campeche and Chiapas depends in a big
+extent on the extraction of petroleum, unlike Veracruz which has other
+strong activities such as Chemistry, Metalurgical and Food industries.
