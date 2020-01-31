@@ -187,15 +187,8 @@ export.rows %>%
 ## until 2009 is the same state and then it changes, but per activity
 ## it remains until 2013, and then it changes, both state and activity.
 ##
-## IDEA: Maybe we can observe this 4 states with more detail
+## Maybe we can observe this 4 states with more detail
     
-
-### IDEA ---------------------------------------------------------------
-### You can make a shiny app that shows per state, activity, or USD,
-### statistics like, the main production per state, or the main states
-### producing X stuff.
-###
-### Here is a starting point for it
 
 ## FUNCTION TO CHOSEE MAIN ACTIVITY PER STATE
 plot_state <- function(estado, USD_min = 5000000){
@@ -269,7 +262,6 @@ plot_state("Nuevo León")
 plot_state("Tamaulipas")
 plot_state("Campeche", USD_min = 10000)
 
-### IDEA |
 ### It seems that producing computer equipment is the main in 3 of the
 ### top 5 states, while the wealthiest activity over all is transport
 ### equipment production. Let's look with more detail at this
@@ -278,3 +270,8 @@ plot_activity(activities.en[14])
 plot_activity(activities.en[15])
 
 ## Now is very clear the reason why
+
+### IDEA ---------------------------------------------------------------
+### You can make a shiny app that shows per state, activity, or USD,
+### statistics like, the main production per state, or the main states
+### producing X stuff.

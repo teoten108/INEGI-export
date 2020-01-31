@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-01-25 sob 22:33 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Total exportations of Mexico by State and Activity</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="teoten" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style>pre.src{background:#eee;}</style>
+<style type="text/css">body{max-width:60%;}</style>
+<style>code{background:#eee;}</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Total exportations of Mexico by State and Activity</h1>
+
+<div id="outline-container-org92cdadb" class="outline-2">
+<h2 id="org92cdadb">EDA in python</h2>
+<div class="outline-text-2" id="text-org92cdadb">
+<p>
+This is my first EDA in python. For now, this file is not intended to be
+a publication of the results, buth rather a notebook for testing code in
+an organised way. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org569f807" class="outline-2">
+<h2 id="org569f807">Loading and translating data</h2>
+<div class="outline-text-2" id="text-org569f807">
+<div class="org-src-container">
+<pre class="src src-python">import pandas as pd
+import numpy as np
+from plotnine import *
+import matplotlib.pyplot as plt
+import seaborn as sb
+plt.style.use('ggplot')
+
+ex_rows = pd.read_csv("./exportations_activity_rows.csv")
+ex_cols = pd.read_csv("./exportations_activity_cols.csv")
+
+## Spanish names in a vector
+categorias = pd.Series(pd.read_csv("./exportations_activity_cols.csv")
+		       .columns.values[2:27])
+
+## Shorter equivalents in English
+activities_en = pd.Series(["Total", "Food", "Drinks and tobacco",
+			   "Textiles", "Textile products", "Tailoring",
+			   "Paper", "Chemistry", "Plastic",
+			   "Minerals based", "Metal industry",
+			   "Metal products","Machinery", "Electronics",
+			   "Transport equipment", "Furniture",
+			   "Other manufactures","Not specified", "Mining",
+			   "Leather", "Wood","Printing","Electricity",
+			   "Petroleum", "Petroleum products"])
+
+## Change column names 2:27
+ex_cols.columns = pd.Series(['state','year']).append(activities_en)
+list(ex_cols.columns.values)
+</pre>
+</div>
+
+<p>
+Function to translate in the rows data frame
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">def translate (vector_es):
+    vector_en = []
+    for i in range(len(vector_es)):
+	vector_en.append(equivalent(vector_es[i]))
+	## Need to define equivalent 
+    return(vector_en)
+
+def equivalent(expression_es):
+    position = list(categorias[categorias == expression_es].index)
+    ## Match expression_es in the list categorias
+    expression_en = activities_en[position[0]]
+    return(expression_en)
+
+## Testing
+#equivalent("Impresión e industrias conexas")
+
+translate(categorias)
+#translate(['Exportaciones totales', 'Industria alimentaria',
+	   'Industria química'])
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python">&lt;_ast.Expr object at 0x7fde34d439e8&gt;
+</pre>
+</div>
+
+
+<p>
+Now we just need to change the values in the data frame
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">ex_rows = ex_rows.assign(Activity = translate(ex_rows['Descripción']))
+
+ex_rows.head()
+</pre>
+</div>
+
+<pre class="example">
+&lt;_ast.Expr object at 0x7fde34d439e8&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga168b8d" class="outline-2">
+<h2 id="orga168b8d">EDA</h2>
+<div class="outline-text-2" id="text-orga168b8d">
+<p>
+To start with the EDA, let’s look at the totals by state, using 
+<code>export.cols</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">(ex_rows.query('Activity == "Total"')
+ .groupby('state')
+ .agg({'USD':'sum'}).
+ sort_values('USD', ascending=False))
+
+(ex_cols.groupby('state')
+ .agg({'Total':'sum'})
+ .sort_values('Total', ascending=False))
+</pre>
+</div>
+
+<p>
+Visual representation
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">main_states = (ex_cols.groupby('state')
+	       .agg({'Total':'sum'})
+	       .sort_values('Total', ascending=False)
+	       .reset_index())
+
+ggplot(main_states) + \
+    geom_bar(aes('state', 'Total', fill = 'Total'), stat = 'identity') + \
+    coord_flip()
+
+## Using matplotlib
+plt.figure(figsize=(15,10))
+(ex_cols.groupby('state')
+ .agg({'Total':'sum'})
+ .sort_values('Total', ascending=False)
+ .plot.bar())
+plt.xlabel("States")
+plt.ylabel("Total USD in exportations")
+plt.xticks(fontsize=15)
+</pre>
+</div>
+
+<p>
+Now the main categories
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">main_act = ex_rows.query('Activity != "Total"').\
+    groupby('Activity').agg({'USD':'sum'}).\
+    sort_values('USD', ascending=False).\
+    reset_index()
+
+ggplot(main_act) + \
+    geom_bar(aes('Activity', 'USD', fill = 'USD'), stat = 'identity') + \
+    coord_flip()
+
+plt.figure(figsize=(15,10))
+(ex_rows.query('Activity != "Total"')
+ .groupby('Activity')
+ .agg({'USD':'sum'})
+ .sort_values('USD', ascending=False)
+ .plot.bar())
+plt.xlabel("Activity")
+plt.ylabel("Total USD in exportations")
+</pre>
+</div>
+
+<p>
+And total exportations per year
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">ex_cols.groupby('year').agg({'Total':'sum'}).reset_index()
+
+## ggplot version
+ggplot((ex_cols.groupby('year')
+	.agg({'Total':'sum'})
+	.reset_index()),
+       aes('year', 'Total')) + \
+    geom_line() + geom_point()
+
+## seaborn version
+plt.figure(figsize=(15,10))
+ex_cols.groupby('year').\
+    agg({'Total':'sum'}).\
+    plot(color = 'k', linestyle = '--', marker = 'o')
+plt.ylabel("Total in USD")
+
+per_year = ex_rows.query('Activity == "Total"').\
+    groupby(['year', 'state']).\
+    agg({'USD':'sum'}).\
+    reset_index()
+
+## ggplot
+ggplot(per_year, aes('year', 'USD')) +\
+    geom_line(aes(colour = 'state')) +\
+    geom_point(aes(colour = 'state'))
+
+## We could also plot activity per year
+plt.figure(figsize=(15,10))
+ex_cols.groupby('year').sum().plot(marker = '*')
+plt.ylabel("Total USD in exportations")
+
+</pre>
+</div>
+
+<p>
+We also would like to see if every year was the same state and/or the 
+same activity making the biggest money by exportation, or if this changed 
+with the time. Unfortunately, our figure with the total exportation per 
+year grouped by state is quite messy and difficult to appreciate due to 
+the big number of states. Thus we need a different approach to that
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">ex_cols[['year', 'state', 'Total']].\
+    iloc[ex_cols.groupby('year').\
+	 idxmax()['Total']]
+
+## Here we used iloc, which choses location of certain rows
+ex_cols.iloc[[1,3,7]] # rows 1, 3 and 7
+
+## and idxmax which finds row location of the max values
+ex_cols.groupby('year').idxmax()['Total']
+
+</pre>
+</div>
+
+<p>
+Now per activity:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">ex_cols[['year', 'state', 'Total']].\
+    iloc[ex_cols.\
+	 groupby('year').\
+	 idxmax()['Total']]
+
+ex_rows.query('Activity != "Total"').groupby('year').
+
+ex_rows.iloc[ex_rows.drop(['Código', 'Descripción'], axis = 'columns').\
+	     query('Activity != "Total"').\
+	     groupby('year').\
+	     idxmax()['USD']][['year', 'Activity', 'state']]
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0dcdcfe" class="outline-2">
+<h2 id="org0dcdcfe">Interactive visualisation</h2>
+<div class="outline-text-2" id="text-org0dcdcfe">
+<p>
+We can create specific functions using our data frames to look directly 
+at a given state or activity in order to make our analysis easier and 
+find specific patterns.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">## Function to choose main activity per state
+def plot_state(estado, USD_min = 5000000):
+    st_df = ex_rows.query('Activity != "Total"').\
+	groupby(['state', 'Activity']).\
+	agg({'USD':'sum'}).\
+	reset_index().\
+	query(str("state == '{}' &amp; USD &gt;= {}".format(estado, USD_min)))
+    #return(st_df)
+    #sb.palplot(sb.color_palette("Blues"))
+    sb.set_palette("Blues_r")
+    st_df.sort_values('USD', ascending=False).plot.bar(x = 'Activity')
+    plt.ylabel("Total USD in exportations")
+    plt.xlabel(None)
+    plt.title(estado)
+
+plot_state(estado = "Chihuahua")
+plot_state("Baja California")
+plot_state("Coahuila de Zaragoza")
+plot_state("Nuevo León")
+plot_state("Tamaulipas")
+plot_state("Campeche", USD_min = 10000)
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: teoten</p>
+<p class="date">Created: 2020-01-25 sob 22:33</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
