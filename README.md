@@ -1,20 +1,23 @@
 INTRODUCTION
 ============
 
-The data set was taken from the website of the national institute of
-informatics. Downloaded in excel format, it contains info about annual
-exportation of products by sector, given in thousands of USD.
+The data set was taken from the website of the [national institute of
+informatics.](https://www.inegi.org.mx/datos/) Downloaded in excel
+format, it contains info about annual exportation of products by sector,
+given in thousands of USD.
 
-IMPORTING AND TIDYING THE DATA
-==============================
+![Excel file](README_files/excel_file.png)
 
 The excel file is separated in different sheets per state. Each sheet
 contains the same information: annual exportation of products by sector,
 given in thousands of USD, where each column contains information of the
 year, from 2007 to 2017.
 
-Our first step will be to import the data from the excel file, and
-tidying it in a useful way:
+IMPORTING AND TIDYING THE DATA
+==============================
+
+Due to the format of the file, our first step will be to tidy up the
+data in a format that is useful to R and more manageable by us.
 
 ``` r
   ## Calling libraries
@@ -52,7 +55,6 @@ tidying it in a useful way:
   exportation$`Código` <- parse_factor(as.character(exportation$`Código`))
 
   ## Tidying data
-
   export1 <- exportation %>%
       pivot_longer(cols = `2007`:`2018`,
                    names_to = "year",
