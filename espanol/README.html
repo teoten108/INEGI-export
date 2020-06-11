@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-06-11 Thu 18:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Total exportations of Mexico by State and Activity</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Manuel T." />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style>pre.src{background:#eee;}</style>
+<style type="text/css">body{max-width:60%;}</style>
+<style>code{background:#eee;}</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Total exportations of Mexico by State and Activity</h1>
+<p>
+Esta es la versión en español, que mas bien pretende ser un tutorial
+de un Analisis Exploratorio de Datos general, debido a la carencia
+de material en español para el desarrollo de análisis de datos y
+otras herramientas útiles para investigadores, estadísticos y 
+estudiantes de habla hispana. 
+</p>
+
+<div id="outline-container-org24cefd3" class="outline-2">
+<h2 id="org24cefd3">INTRODUCCIÓN</h2>
+<div class="outline-text-2" id="text-org24cefd3">
+<p>
+Los datos han sido tomados de la pagina oficial de <a href="https://www.inegi.org.mx/datos/">INEGI</a>. En formato
+de excel contienen información sobre exportaciones anuales por sector,
+en miles de dolares (USD).
+</p>
+
+
+<div class="figure">
+<p><img src="../README_files/excel_file.png" alt="excel_file.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7e4d417" class="outline-2">
+<h2 id="org7e4d417">Importando y ordenando (TIDYING) los datos</h2>
+<div class="outline-text-2" id="text-org7e4d417">
+<p>
+El archivo de excel ha sido separado en diferentes hojas de cálculo
+por estado. Cada hoja contiene la misma información: exportación
+anual de productos por sector (en miles de USD), donde cada columna
+contiene información sobre el año, de 2007 a 2017.
+</p>
+
+<p>
+Lo primero va a ser la importación de datos desde excel en el formato
+de tibble. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Nuestras librer&#237;as requeridas </span>
+<span style="color: #7fffd4;">library</span>(readxl)
+<span style="color: #7fffd4;">library</span>(tidyverse)
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Importar desde Excel directamente</span>
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Cada hoja es llamada como el estado</span>
+estados <span style="color: #7fffd4;">&lt;-</span> excel_sheets(<span style="color: #ffa07a;">'../ignore/EAEF_Entidad_Subsector.xlsx'</span>)
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Generaci&#243;n de los espacios para las columnas </span>
+read_xlsx(<span style="color: #ffa07a;">'../ignore/EAEF_Entidad_Subsector.xlsx'</span>,
+                         range = <span style="color: #ffa07a;">"A5:N5"</span>, sheet = 1,
+                         col_types = c(<span style="color: #ffa07a;">"numeric"</span>, <span style="color: #ffa07a;">"text"</span>,
+                                       rep(<span style="color: #ffa07a;">"numeric"</span>, 12)))
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Creamos columna para estado </span>
+exportation <span style="color: #7fffd4;">&lt;-</span> mutate(exportation, state = <span style="color: #ffa07a;">"Aguascalientes"</span>)
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Iteraci&#243;n en cada hoja de c&#225;lculo </span>
+<span style="color: #00ffff;">for</span> (i <span style="color: #00ffff;">in</span> 1:length(estados)){
+    extracted <span style="color: #7fffd4;">&lt;-</span> read_xlsx(<span style="color: #ffa07a;">'../ignore/EAEF_Entidad_Subsector.xlsx'</span>,
+                           range = <span style="color: #ffa07a;">"A7:N31"</span>, sheet = i,
+                           col_names = F, na = <span style="color: #ffa07a;">"-"</span>,
+                           col_types = c(<span style="color: #ffa07a;">"numeric"</span>, <span style="color: #ffa07a;">"text"</span>,
+                                         rep(<span style="color: #ffa07a;">"numeric"</span>, 12)))
+    colnames(extracted) <span style="color: #7fffd4;">&lt;-</span> colnames(exportation)[1:14]
+    extracted <span style="color: #7fffd4;">&lt;-</span> mutate(extracted,
+                        state = estados[i])
+    exportation <span style="color: #7fffd4;">&lt;-</span> full_join(exportation, extracted)
+}
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Arreglar nombres de columnas con info extra </span>
+colnames(exportation)[c(3, 14)] <span style="color: #7fffd4;">&lt;-</span> c(<span style="color: #ffa07a;">"2007"</span>, <span style="color: #ffa07a;">"2018"</span>)
+exportation$<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`C&#243;digo`</span> <span style="color: #7fffd4;">&lt;-</span> parse_factor(as.character(exportation$<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`C&#243;digo`</span>))
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Tidying data</span>
+
+export1 <span style="color: #7fffd4;">&lt;-</span> exportation <span style="color: #7fffd4;">%&gt;%</span>
+    pivot_longer(cols = <span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`2007`</span>:<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`2018`</span>,
+                 names_to = <span style="color: #ffa07a;">"year"</span>,
+                 values_to = <span style="color: #ffa07a;">"USD"</span>,
+                 values_drop_na = T) <span style="color: #7fffd4;">%&gt;%</span>
+    mutate(year = parse_double(year))
+export <span style="color: #7fffd4;">&lt;-</span> export1 <span style="color: #7fffd4;">%&gt;%</span>
+    pivot_wider(names_from = <span style="color: #ffa07a;">"Descripci&#243;n"</span>,
+                values_from = USD,
+                id_cols = c(<span style="color: #ffa07a;">"state"</span>, <span style="color: #ffa07a;">"year"</span>))
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Guardar en CSV </span>
+write_csv(export1, <span style="color: #ffa07a;">"exportations_activity_rows.csv"</span>)
+write_csv(export, <span style="color: #ffa07a;">"exportations_activity_cols.csv"</span>)
+
+</pre>
+</div>
+
+<p>
+Hemos creado dos archivos CSV: <code>exportations_activity_rows.csv</code> 
+(creado de <code>export1</code>) contiene información por actividad en cada
+fila; y <code>exportations_activity_cols</code> (de <code>export</code>) que mantiene
+cada actividad en columnas. Cada una nos puede dar diferentes
+opciones para analizar los datos y crear visualizaciones. Por eso
+hemos decidido mantenerlas como archivos separados, así podemos
+llamarlos cuando se requieran, y pueden ser descargadas y utilizadas
+por cualquier usuario.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaad8ceb" class="outline-2">
+<h2 id="orgaad8ceb">Analysis exploratorio (Exploratory Data Analysis, EDA)</h2>
+<div class="outline-text-2" id="text-orgaad8ceb">
+<p>
+Si empezamos una sesión nueva ahora podemos llamar directamente
+los archivos CSV.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #7fffd4;">library</span>(tidyverse)
+<span style="color: #7fffd4;">library</span>(cowplot)
+
+export.rows <span style="color: #7fffd4;">&lt;-</span> read_csv(<span style="color: #ffa07a;">"../exportations_activity_rows.csv"</span>)
+export.cols <span style="color: #7fffd4;">&lt;-</span> read_csv(<span style="color: #ffa07a;">"../exportations_activity_cols.csv"</span>)
+</pre>
+</div>
+
+<p>
+El analysis fue hecho primordialmente en inglés. He decidido mantener
+el código en inglés por facilidad para mi por un lado, pero también
+por el beneficio de ser mas amigable con R en general, y de generar
+nombres mas cortos. Así pues, algunos valores se mantendrán en español
+y otros han sido traducidos para la manipulación de los datos. El 
+siguiente bloque contiene la traducción de las actividades para
+generar nombres mas accesibles.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Nombres en espa&#241;ol en un vector</span>
+colnames(export.cols)
+categorias <span style="color: #7fffd4;">&lt;-</span> colnames(export.cols)[3:27]
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Equivalentes en ingl&#233;s </span>
+activities.en <span style="color: #7fffd4;">&lt;-</span> c(<span style="color: #ffa07a;">"Total"</span>, <span style="color: #ffa07a;">"Food"</span>, <span style="color: #ffa07a;">"Drinks and tobacco"</span>,
+                <span style="color: #ffa07a;">"Textiles"</span>, <span style="color: #ffa07a;">"Textile products"</span>, <span style="color: #ffa07a;">"Tailoring"</span>,
+                <span style="color: #ffa07a;">"Paper"</span>, <span style="color: #ffa07a;">"Chemistry"</span>, <span style="color: #ffa07a;">"Plastic"</span>,
+                <span style="color: #ffa07a;">"Minerals based"</span>, <span style="color: #ffa07a;">"Metal industry"</span>, <span style="color: #ffa07a;">"Metal products"</span>,
+                <span style="color: #ffa07a;">"Machinery"</span>, <span style="color: #ffa07a;">"Electronics"</span>, <span style="color: #ffa07a;">"Transport equipment"</span>,
+                <span style="color: #ffa07a;">"Furniture"</span>, <span style="color: #ffa07a;">"Other manufactures"</span>, <span style="color: #ffa07a;">"Not specified"</span>,
+                <span style="color: #ffa07a;">"Mining"</span>, <span style="color: #ffa07a;">"Leather"</span>, <span style="color: #ffa07a;">"Wood"</span>,
+                <span style="color: #ffa07a;">"Printing"</span>, <span style="color: #ffa07a;">"Electricity"</span>, <span style="color: #ffa07a;">"Petroleum"</span>,
+                <span style="color: #ffa07a;">"Petroleum products"</span>)
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Cambio de nombres</span>
+colnames(export.cols)[3:27] <span style="color: #7fffd4;">&lt;-</span> activities.en
+</pre>
+</div>
+
+<p>
+Para cambiar los valores en <code>export.rows</code> vamos a necesitar la 
+conversión de las expresiones en español a las mismas en inglés.
+Aqui he utilizado herramientas de programación basada en funciones
+(Functional Programing en inglés) para generar: primero la función
+principal para traducir <code>translating</code>. Basado en esta, vamos llenando
+los huecos, creamos <code>equivalent</code> para buscar la expresión equivalente
+en cada idioma. Sin embargo, para que R los reconozca y pueda ejecutar
+<code>translate</code>, necesitamos correr primero <code>equivalent</code>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">  <span style="color: #87cefa;">equivalent</span> <span style="color: #7fffd4;">&lt;-</span> <span style="color: #00ffff;">function</span>(expression.es){
+      position <span style="color: #7fffd4;">&lt;-</span> match(expression.es, categorias)
+      expression.en <span style="color: #7fffd4;">&lt;-</span> activities.en[position]
+      expression.en
+  }
+
+   <span style="color: #87cefa;">translate</span> <span style="color: #7fffd4;">&lt;-</span> <span style="color: #00ffff;">function</span>(vector.es){
+    vector.en <span style="color: #7fffd4;">&lt;-</span> c()
+    <span style="color: #00ffff;">for</span> (i <span style="color: #00ffff;">in</span> 1:length(vector.es)){
+        expression.es <span style="color: #7fffd4;">&lt;-</span> vector.es[i]
+        expression.en <span style="color: #7fffd4;">&lt;-</span> equivalent(expression.es)
+        <span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">"equivalent" toma expression.es y regresa el</span>
+        <span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">equivalente en ingles</span>
+        vector.en <span style="color: #7fffd4;">&lt;-</span> append(vector.en, expression.en)
+    }
+    vector.en
+}
+
+
+<span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Probando nuestra nueva funci&#243;n</span>
+   equivalent(<span style="color: #ffa07a;">"Impresi&#243;n e industrias conexas"</span>)
+</pre>
+</div>
+
+<pre class="example">
+
+[1] "Printing"
+
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-R">translate(categorias)
+</pre>
+</div>
+
+<pre class="example">
+ [1] "Total"               "Food"                "Drinks and tobacco" 
+ [4] "Textiles"            "Textile products"    "Tailoring"          
+ [7] "Paper"               "Chemistry"           "Plastic"            
+[10] "Minerals based"      "Metal industry"      "Metal products"     
+[13] "Machinery"           "Electronics"         "Transport equipment"
+[16] "Furniture"           "Other manufactures"  "Not specified"      
+[19] "Mining"              "Leather"             "Wood"               
+[22] "Printing"            "Electricity"         "Petroleum"          
+[25] "Petroleum products"
+
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Creamos una nueva columna "Activity" con las expressiones en ingles</span>
+(export.rows <span style="color: #7fffd4;">&lt;-</span> mutate(export.rows,
+                      Activity = translate(<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`Descripci&#243;n`</span>)))
+</pre>
+</div>
+
+<pre class="example">
+
+# A tibble: 5,255 x 6
+   Código Descripción           state           year     USD Activity
+    &lt;dbl&gt; &lt;chr&gt;                 &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
+ 1     NA Exportaciones totales Aguascalientes  2007 4389841 Total   
+ 2     NA Exportaciones totales Aguascalientes  2008 4456893 Total   
+ 3     NA Exportaciones totales Aguascalientes  2009 3951108 Total   
+ 4     NA Exportaciones totales Aguascalientes  2010 5647929 Total   
+ 5     NA Exportaciones totales Aguascalientes  2011 6051640 Total   
+ 6     NA Exportaciones totales Aguascalientes  2012 6183782 Total   
+ 7     NA Exportaciones totales Aguascalientes  2013 6726207 Total   
+ 8     NA Exportaciones totales Aguascalientes  2014 8466007 Total   
+ 9     NA Exportaciones totales Aguascalientes  2015 8495445 Total   
+10     NA Exportaciones totales Aguascalientes  2016 7870962 Total   
+# … with 5,245 more rows
+</pre>
+
+<p>
+Ahora para empezar formlamente nuestro EDA, vamos a darle un vistazo
+a los totales por estado, utilizando nuestra tabla <code>export.cols</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">export.cols <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(state) <span style="color: #7fffd4;">%&gt;%</span>
+    summarise(<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`total export`</span> = sum(Total)) <span style="color: #7fffd4;">%&gt;%</span>
+    arrange(desc(<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`total export`</span>)) <span style="color: #7fffd4;">%&gt;%</span>
+    print(n = <span style="color: #98fb98;">Inf</span>)
+</pre>
+</div>
+
+<pre class="example">
+
+# A tibble: 32 x 2
+   state                           `total export`
+   &lt;chr&gt;                                    &lt;dbl&gt;
+ 1 Chihuahua                            466861927
+ 2 Baja California                      398935507
+ 3 Coahuila de Zaragoza                 355638907
+ 4 Nuevo León                           330267052
+ 5 Tamaulipas                           284435973
+ 6 Campeche                             264100465
+ 7 Jalisco                              213931233
+ 8 México                               188357470
+ 9 Sonora                               179661021
+10 Guanajuato                           167191962
+11 Puebla                               127934390
+12 Tabasco                              115797563
+13 San Luis Potosí                       94812554
+14 Querétaro                             88633615
+15 Aguascalientes                        79688240
+16 Veracruz de Ignacio de la Llave       68556313
+17 Morelos                               37397175
+18 Zacatecas                             34010223
+19 Ciudad de México                      32037661
+20 Hidalgo                               19504479
+21 Durango                               17431796
+22 Yucatán                               14496875
+23 Michoacán de Ocampo                   13411397
+24 Chiapas                               13291536
+25 Tlaxcala                              12987607
+26 Oaxaca                                11023551
+27 Sinaloa                                7825439
+28 Guerrero                               5918438
+29 Colima                                 2518028
+30 Baja California Sur                    2303491
+31 Nayarit                                1146388
+32 Quinta Roo                              517674
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-R"> <span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Visualizaci&#243;n</span>
+export.cols <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(state) <span style="color: #7fffd4;">%&gt;%</span>
+    summarise(<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`total export`</span> = sum(Total)) <span style="color: #7fffd4;">%&gt;%</span>
+    ggplot() +
+    geom_bar(aes(y = <span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`total export`</span>,
+                 x = reorder(state, <span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`total export`</span>, FUN = abs),
+                 fill = <span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`total export`</span>),
+             stat = <span style="color: #ffa07a;">'identity'</span>) +
+    coord_flip()
+
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="figure1.png" alt="figure1.png" />
+</p>
+</div>
+
+
+<p>
+Ahora podemos hacer lo mismo pero por categoría, usando <code>export.rows</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">export.rows <span style="color: #7fffd4;">%&gt;%</span>
+    filter(Activity != <span style="color: #ffa07a;">"Total"</span>) <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(Activity) <span style="color: #7fffd4;">%&gt;%</span>
+    summarise(Total = sum(USD)) <span style="color: #7fffd4;">%&gt;%</span>
+    arrange(desc(Total)) <span style="color: #7fffd4;">%&gt;%</span>
+    print(n = <span style="color: #98fb98;">Inf</span>)
+</pre>
+</div>
+
+<pre class="example">
+
+# A tibble: 24 x 2
+   Activity                 Total
+   &lt;chr&gt;                    &lt;dbl&gt;
+ 1 Transport equipment 1226859499
+ 2 Electronics          747959073
+ 3 Petroleum            397933968
+ 4 Electricity          208582754
+ 5 Other manufactures   147915402
+ 6 Machinery            136957553
+ 7 Chemistry            133570853
+ 8 Metal industry       117915995
+ 9 Metal products        82889135
+10 Food                  81653585
+11 Plastic               80126816
+12 Mining                52953993
+13 Not specified         51470567
+14 Tailoring             43913959
+15 Drinks and tobacco    31059501
+16 Minerals based        30584505
+17 Furniture             19883596
+18 Petroleum products    14565067
+19 Paper                 13876523
+20 Leather                9863853
+21 Printing               6915538
+22 Textiles               6260722
+23 Textile products       4954252
+24 Wood                   1959275
+</pre>
+
+
+<div class="org-src-container">
+<pre class="src src-R">export.rows <span style="color: #7fffd4;">%&gt;%</span>
+    filter(Activity != <span style="color: #ffa07a;">"Total"</span>) <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(Activity) <span style="color: #7fffd4;">%&gt;%</span>
+    summarise(Total = sum(USD)) <span style="color: #7fffd4;">%&gt;%</span>
+    ggplot() +
+    geom_bar(aes(y = Total,
+                 x = reorder(Activity, Total, FUN = abs),
+                 fill = Total),
+             stat = <span style="color: #ffa07a;">'identity'</span>) +
+    coord_flip()
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="figure2.png" alt="figure2.png" />
+</p>
+</div>
+
+<p>
+Por último, las exportaciones totales por año.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">export.cols <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(year) <span style="color: #7fffd4;">%&gt;%</span>
+    summarise(<span style="color: rgb:e2/e2/e2; background-color: rgb:00/0f/1f;">`total export`</span> = sum(Total)) <span style="color: #7fffd4;">%&gt;%</span>
+    print(n = <span style="color: #98fb98;">Inf</span>)
+</pre>
+</div>
+
+<pre class="example">
+
+# A tibble: 12 x 2
+    year `total export`
+   &lt;dbl&gt;          &lt;dbl&gt;
+ 1  2007      237809741
+ 2  2008      257967777
+ 3  2009      198234125
+ 4  2010      258504747
+ 5  2011      299732519
+ 6  2012      320014188
+ 7  2013      329562705
+ 8  2014      347559680
+ 9  2015      337170197
+10  2016      324901419
+11  2017      351726063
+12  2018      387442789
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-R">   <span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Visualization</span>
+export.rows <span style="color: #7fffd4;">%&gt;%</span>
+    filter(Activity == <span style="color: #ffa07a;">"Total"</span>) <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(year) <span style="color: #7fffd4;">%&gt;%</span>
+    summarise(Total = sum(USD)) <span style="color: #7fffd4;">%&gt;%</span>
+    ggplot(aes(x = year, y = Total)) +
+    geom_line() +
+    geom_point() 
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="figure3.png" alt="figure3.png" />
+</p>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-R">   <span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Per state</span>
+export.rows <span style="color: #7fffd4;">%&gt;%</span>
+    filter(Activity == <span style="color: #ffa07a;">"Total"</span>) <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(year, state) <span style="color: #7fffd4;">%&gt;%</span>
+    summarise(Total = sum(USD)) <span style="color: #7fffd4;">%&gt;%</span>
+    ggplot(aes(x = year, y = Total)) +
+    geom_line(aes(colour = abbreviate(state, 6)))+
+    geom_point(aes(colour = abbreviate(state, 6)))
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="figure4.png" alt="figure4.png" />
+</p>
+</div>
+
+<p>
+También nos gustaría ver si cada año fue el mismo estado o la misma
+actividad haciendo la mayor cantidad de dolares en exportaciones, o
+si esto cambió con el tiempo. Desafortunadamente nuestra gráfica con
+las exportaciones totales por año agrupada por estado es demasiado
+complicada para apreciar bien los detalles debido al gran número de
+estados. Probemos otro acercamiento:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">   <span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Principal estado en cada a&#241;o</span>
+export.cols <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(year) <span style="color: #7fffd4;">%&gt;%</span>
+    filter(Total == max(Total)) <span style="color: #7fffd4;">%&gt;%</span>
+    select(year, state, Total) <span style="color: #7fffd4;">%&gt;%</span>
+    arrange(year)
+</pre>
+</div>
+
+<pre class="example">
+
+# A tibble: 12 x 3
+# Groups:   year [12]
+    year state              Total
+   &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;
+ 1  2007 Baja California 31858677
+ 2  2008 Baja California 32988913
+ 3  2009 Baja California 26741828
+ 4  2010 Chihuahua       34633881
+ 5  2011 Chihuahua       38446014
+ 6  2012 Chihuahua       41764861
+ 7  2013 Chihuahua       43770979
+ 8  2014 Chihuahua       45594451
+ 9  2015 Chihuahua       40302945
+10  2016 Chihuahua       43342067
+11  2017 Chihuahua       46491551
+12  2018 Chihuahua       51944047
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #ff7f24;">## </span><span style="color: #ff7f24;">Activity</span>
+export.rows <span style="color: #7fffd4;">%&gt;%</span>
+    filter(Activity != <span style="color: #ffa07a;">"Total"</span>) <span style="color: #7fffd4;">%&gt;%</span>
+    group_by(year) <span style="color: #7fffd4;">%&gt;%</span>
+    filter(USD == max(USD)) <span style="color: #7fffd4;">%&gt;%</span>
+    arrange(year) <span style="color: #7fffd4;">%&gt;%</span>
+    select(Activity, state, year)
+</pre>
+</div>
+
+<pre class="example">
+
+# A tibble: 12 x 3
+# Groups:   year [12]
+   Activity            state                 year
+   &lt;chr&gt;               &lt;chr&gt;                &lt;dbl&gt;
+ 1 Petroleum           Campeche              2007
+ 2 Petroleum           Campeche              2008
+ 3 Petroleum           Campeche              2009
+ 4 Petroleum           Campeche              2010
+ 5 Petroleum           Campeche              2011
+ 6 Petroleum           Campeche              2012
+ 7 Petroleum           Campeche              2013
+ 8 Transport equipment Coahuila de Zaragoza  2014
+ 9 Transport equipment Coahuila de Zaragoza  2015
+10 Transport equipment Coahuila de Zaragoza  2016
+11 Transport equipment Coahuila de Zaragoza  2017
+12 Transport equipment Coahuila de Zaragoza  2018
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Manuel T.</p>
+<p class="date">Created: 2020-06-11 Thu 18:38</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

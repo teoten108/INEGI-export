@@ -4,7 +4,7 @@
 #+HTML_HEAD: <style>code{background:#eee;}</style>
 #+TITLE: Total exportations of Mexico by State and Activity
 #+AUTHOR: Manuel T.
-#+BABEL: header-args :results output :exports both 
+#+PROPERTY: header-args :results output :exports both 
 #+STYLE:      <style type="text/css">#outline-container-introduction{ clear:both; }</style>
 #+LANGUAGE:   en
 
