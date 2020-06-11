@@ -1,9 +1,8 @@
-#+OPTIONS: num:nil toc:nil H:3 \n:nil @:t ::t |:t ^:{} -:t f:t *:t skip:t d:(HIDE) tags:not-in-toc
-#+HTML_HEAD: <style>pre.src{background:#eee;}</style>
-#+HTML_HEAD: <style type="text/css">body{max-width:60%;}</style> 
-#+HTML_HEAD: <style>code{background:#eee;}</style>
+#+OPTIONS:    H:3 num:nil toc:2 \n:nil @:t ::t |:t ^:{} -:t f:t *:t TeX:t LaTeX:t skip:t d:(HIDE) tags:not-in-toc
+#+STARTUP:    align fold nodlcheck hidestars oddeven lognotestate 
 #+TITLE: Total exportations of Mexico by State and Activity
 #+AUTHOR: Manuel T.
+#+EMAIL:     teoten@gmail.com
 #+PROPERTY: header-args :results output :exports both 
 #+STYLE:      <style type="text/css">#outline-container-introduction{ clear:both; }</style>
 #+LANGUAGE:   en
