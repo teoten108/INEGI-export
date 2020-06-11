@@ -4,7 +4,8 @@
 #+HTML_HEAD: <style>code{background:#eee;}</style>
 #+TITLE: Total exportations of Mexico by State and Activity
 #+AUTHOR: Manuel T.
-#+PROPERTY: header-args:R :results output :exports both 
+#+BABEL: header-args :results output :exports both 
+#+STYLE:      <style type="text/css">#outline-container-introduction{ clear:both; }</style>
 #+LANGUAGE:   en
 
 Esta es la versión en español, que mas bien pretende ser un tutorial
@@ -21,7 +22,7 @@ Los datos han sido tomados de la pagina oficial de [[https://www.inegi.org.mx/da
 de excel contienen información sobre exportaciones anuales por sector,
 en miles de dolares (USD).
 
-[[/mnt/teodoro/Code/R/projects/INEGI-exportacion/README_files/excel_file.png]]
+[[../README_files/excel_file.png]]
 
 * Importando y ordenando (TIDYING) los datos
 
