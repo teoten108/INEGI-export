@@ -1,10 +1,9 @@
-#+OPTIONS:    H:3 num:nil toc:2 \n:nil @:t ::t |:t ^:{} -:t f:t *:t TeX:t LaTeX:t skip:t d:(HIDE) tags:not-in-toc
+#+OPTIONS:    H:3 num:nil toc:0 \n:nil @:t ::t |:t ^:{} -:t f:t *:t TeX:t LaTeX:t skip:t d:(HIDE) tags:not-in-toc
 #+STARTUP:    align fold nodlcheck hidestars oddeven lognotestate 
 #+TITLE: Total exportations of Mexico by State and Activity
 #+AUTHOR: Manuel T.
 #+EMAIL:     teoten@gmail.com
 #+PROPERTY: header-args :results output :exports both 
-#+STYLE:      <style type="text/css">#outline-container-introduction{ clear:both; }</style>
 #+LANGUAGE:   en
 
 Esta es la versión en español, que mas bien pretende ser un tutorial
@@ -33,7 +32,7 @@ contiene información sobre el año, de 2007 a 2017.
 Lo primero va a ser la importación de datos desde excel en el formato
 de tibble. 
 
-#+BEGIN_SRC R :session :results silent
+#+BEGIN_SRC R :session :exports code :eval never-export
 
   ## Nuestras librerías requeridas 
   library(readxl)
@@ -118,7 +117,7 @@ y otros han sido traducidos para la manipulación de los datos. El
 siguiente bloque contiene la traducción de las actividades para
 generar nombres mas accesibles.
 
-#+BEGIN_SRC R :session :results silent
+#+BEGIN_SRC R :session :exports code :eval never-export
    ## Nombres en español en un vector
    colnames(export.cols)
    categorias <- colnames(export.cols)[3:27]
