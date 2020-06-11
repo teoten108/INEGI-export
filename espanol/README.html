@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-06-11 Thu 18:47 -->
+<!-- 2020-06-11 Thu 18:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Total exportations of Mexico by State and Activity</title>
@@ -238,9 +238,9 @@ otras herramientas útiles para investigadores, estadísticos y
 estudiantes de habla hispana. 
 </p>
 
-<div id="outline-container-org0af756e" class="outline-2">
-<h2 id="org0af756e">INTRODUCCIÓN</h2>
-<div class="outline-text-2" id="text-org0af756e">
+<div id="outline-container-orgbf6eac1" class="outline-2">
+<h2 id="orgbf6eac1">INTRODUCCIÓN</h2>
+<div class="outline-text-2" id="text-orgbf6eac1">
 <p>
 Los datos han sido tomados de la pagina oficial de <a href="https://www.inegi.org.mx/datos/">INEGI</a>. En formato
 de excel contienen información sobre exportaciones anuales por sector,
@@ -255,9 +255,9 @@ en miles de dolares (USD).
 </div>
 </div>
 
-<div id="outline-container-org174bc11" class="outline-2">
-<h2 id="org174bc11">Importando y ordenando (TIDYING) los datos</h2>
-<div class="outline-text-2" id="text-org174bc11">
+<div id="outline-container-org71d8a4b" class="outline-2">
+<h2 id="org71d8a4b">Importando y ordenando (TIDYING) los datos</h2>
+<div class="outline-text-2" id="text-org71d8a4b">
 <p>
 El archivo de excel ha sido separado en diferentes hojas de cálculo
 por estado. Cada hoja contiene la misma información: exportación
@@ -339,9 +339,9 @@ por cualquier usuario.
 </div>
 </div>
 
-<div id="outline-container-org85f97ba" class="outline-2">
-<h2 id="org85f97ba">Analysis exploratorio (Exploratory Data Analysis, EDA)</h2>
-<div class="outline-text-2" id="text-org85f97ba">
+<div id="outline-container-org7507f58" class="outline-2">
+<h2 id="org7507f58">Analysis exploratorio (Exploratory Data Analysis, EDA)</h2>
+<div class="outline-text-2" id="text-org7507f58">
 <p>
 Si empezamos una sesión nueva ahora podemos llamar directamente
 los archivos CSV.
@@ -424,7 +424,6 @@ en cada idioma. Sin embargo, para que R los reconozca y pueda ejecutar
 </div>
 
 <pre class="example">
-
 [1] "Printing"
 
 </pre>
@@ -455,7 +454,6 @@ en cada idioma. Sin embargo, para que R los reconozca y pueda ejecutar
 </div>
 
 <pre class="example">
-
 # A tibble: 5,255 x 6
    Código Descripción           state           year     USD Activity
     &lt;dbl&gt; &lt;chr&gt;                 &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   
@@ -487,9 +485,41 @@ a los totales por estado, utilizando nuestra tabla <code>export.cols</code>
 </div>
 
 <pre class="example">
-
-Error: object 'Total' not found
-
+# A tibble: 32 x 2
+   state                           `total export`
+   &lt;chr&gt;                                    &lt;dbl&gt;
+ 1 Chihuahua                            466861927
+ 2 Baja California                      398935507
+ 3 Coahuila de Zaragoza                 355638907
+ 4 Nuevo León                           330267052
+ 5 Tamaulipas                           284435973
+ 6 Campeche                             264100465
+ 7 Jalisco                              213931233
+ 8 México                               188357470
+ 9 Sonora                               179661021
+10 Guanajuato                           167191962
+11 Puebla                               127934390
+12 Tabasco                              115797563
+13 San Luis Potosí                       94812554
+14 Querétaro                             88633615
+15 Aguascalientes                        79688240
+16 Veracruz de Ignacio de la Llave       68556313
+17 Morelos                               37397175
+18 Zacatecas                             34010223
+19 Ciudad de México                      32037661
+20 Hidalgo                               19504479
+21 Durango                               17431796
+22 Yucatán                               14496875
+23 Michoacán de Ocampo                   13411397
+24 Chiapas                               13291536
+25 Tlaxcala                              12987607
+26 Oaxaca                                11023551
+27 Sinaloa                                7825439
+28 Guerrero                               5918438
+29 Colima                                 2518028
+30 Baja California Sur                    2303491
+31 Nayarit                                1146388
+32 Quinta Roo                              517674
 </pre>
 
 <div class="org-src-container">
@@ -529,7 +559,6 @@ Ahora podemos hacer lo mismo pero por categoría, usando <code>export.rows</code
 </div>
 
 <pre class="example">
-
 # A tibble: 24 x 2
    Activity                 Total
    &lt;chr&gt;                    &lt;dbl&gt;
@@ -593,9 +622,21 @@ Por último, las exportaciones totales por año.
 </div>
 
 <pre class="example">
-
-Error: object 'Total' not found
-
+# A tibble: 12 x 2
+    year `total export`
+   &lt;dbl&gt;          &lt;dbl&gt;
+ 1  2007      237809741
+ 2  2008      257967777
+ 3  2009      198234125
+ 4  2010      258504747
+ 5  2011      299732519
+ 6  2012      320014188
+ 7  2013      329562705
+ 8  2014      347559680
+ 9  2015      337170197
+10  2016      324901419
+11  2017      351726063
+12  2018      387442789
 </pre>
 
 <div class="org-src-container">
@@ -654,9 +695,22 @@ export.cols <span style="color: #7fffd4;">%&gt;%</span>
 </div>
 
 <pre class="example">
-
-Error: object 'Total' not found
-
+# A tibble: 12 x 3
+# Groups:   year [12]
+    year state              Total
+   &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;
+ 1  2007 Baja California 31858677
+ 2  2008 Baja California 32988913
+ 3  2009 Baja California 26741828
+ 4  2010 Chihuahua       34633881
+ 5  2011 Chihuahua       38446014
+ 6  2012 Chihuahua       41764861
+ 7  2013 Chihuahua       43770979
+ 8  2014 Chihuahua       45594451
+ 9  2015 Chihuahua       40302945
+10  2016 Chihuahua       43342067
+11  2017 Chihuahua       46491551
+12  2018 Chihuahua       51944047
 </pre>
 
 <div class="org-src-container">
@@ -671,7 +725,6 @@ export.rows <span style="color: #7fffd4;">%&gt;%</span>
 </div>
 
 <pre class="example">
-
 # A tibble: 12 x 3
 # Groups:   year [12]
    Activity            state                 year
@@ -694,7 +747,7 @@ export.rows <span style="color: #7fffd4;">%&gt;%</span>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Manuel T.</p>
-<p class="date">Created: 2020-06-11 Thu 18:47</p>
+<p class="date">Created: 2020-06-11 Thu 18:54</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

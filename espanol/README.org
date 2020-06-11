@@ -117,7 +117,7 @@ y otros han sido traducidos para la manipulación de los datos. El
 siguiente bloque contiene la traducción de las actividades para
 generar nombres mas accesibles.
 
-#+BEGIN_SRC R :session :exports code :eval never-export
+#+BEGIN_SRC R :session :exports code
    ## Nombres en español en un vector
    colnames(export.cols)
    categorias <- colnames(export.cols)[3:27]
