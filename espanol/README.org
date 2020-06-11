@@ -146,7 +146,7 @@ los huecos, creamos =equivalent= para buscar la expresión equivalente
 en cada idioma. Sin embargo, para que R los reconozca y pueda ejecutar
 =translate=, necesitamos correr primero =equivalent=. 
 
-#+BEGIN_SRC R :session 
+#+BEGIN_SRC R :session :results output :exports both 
   equivalent <- function(expression.es){
       position <- match(expression.es, categorias)
       expression.en <- activities.en[position]
@@ -174,7 +174,7 @@ en cada idioma. Sin embargo, para que R los reconozca y pueda ejecutar
    : 
    : [1] "Printing"
 
-#+BEGIN_SRC R :session
+#+BEGIN_SRC R :session :results output :exports both 
    translate(categorias)
 #+END_SRC
 
@@ -189,7 +189,7 @@ en cada idioma. Sin embargo, para que R los reconozca y pueda ejecutar
 : [22] "Printing"            "Electricity"         "Petroleum"          
 : [25] "Petroleum products"
 
-#+BEGIN_SRC R :session
+#+BEGIN_SRC R :session :results output :exports both 
 ## Creamos una nueva columna "Activity" con las expressiones en ingles
 (export.rows <- mutate(export.rows,
                       Activity = translate(`Descripción`)))
@@ -216,7 +216,7 @@ en cada idioma. Sin embargo, para que R los reconozca y pueda ejecutar
 Ahora para empezar formlamente nuestro EDA, vamos a darle un vistazo
 a los totales por estado, utilizando nuestra tabla =export.cols=
 
-#+begin_src R :session
+#+begin_src R :session :results output :exports both 
 export.cols %>%
     group_by(state) %>%
     summarise(`total export` = sum(Total)) %>%
@@ -283,7 +283,7 @@ export.cols %>%
 
 Ahora podemos hacer lo mismo pero por categoría, usando =export.rows=
 
-#+BEGIN_SRC R :session
+#+BEGIN_SRC R :session :results output :exports both 
 export.rows %>%
     filter(Activity != "Total") %>%
     group_by(Activity) %>%
@@ -342,7 +342,7 @@ export.rows %>%
 
 Por último, las exportaciones totales por año.
 
-#+begin_src R :session
+#+begin_src R :session :results output :exports both 
 export.cols %>%
     group_by(year) %>%
     summarise(`total export` = sum(Total)) %>%
@@ -403,7 +403,7 @@ las exportaciones totales por año agrupada por estado es demasiado
 complicada para apreciar bien los detalles debido al gran número de
 estados. Probemos otro acercamiento:
 
-#+BEGIN_SRC R :session 
+#+BEGIN_SRC R :session :results output :exports both 
    ## Principal estado en cada año
 export.cols %>%
     group_by(year) %>%
@@ -432,7 +432,7 @@ export.cols %>%
 12  2018 Chihuahua       51944047
 #+end_example
 
-#+BEGIN_SRC R :session 
+#+BEGIN_SRC R :session :results output :exports both 
 ## Activity
 export.rows %>%
     filter(Activity != "Total") %>%
